@@ -6,7 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="bzip2" Version="1.0.6.11" />
       <PackageReference Include="DSharpPlus" Version="4.0.0-rc2" />
+      <PackageReference Include="ICSharpCode.SharpZipLib.dll" Version="0.85.4.369" />
     </ItemGroup>
 
 </Project>

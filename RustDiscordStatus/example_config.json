@@ -1,0 +1,12 @@
+{
+    "UpdateTime": 5000,
+    "RestartingOverOffline": true,
+    "Servers": [
+        {
+            "BotToken": "bot token",
+            "ServerIP": "149.202.89.125:27015",
+            "Threshold": -1,
+            "ThresholdMessage": "magmanetworks.cc"
+        }
+    ]
+}
