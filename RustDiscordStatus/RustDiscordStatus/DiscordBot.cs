@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.SymbolStore;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
@@ -25,6 +26,15 @@ namespace RustDiscordStatus
 
         public async Task Worker(bool restart)
         {
+            int atemptCount = 0;
+            retry:
+            if (atemptCount == 3)
+            {
+                var discordActivity = new DiscordActivity(restart ? "Restarting..." : "Offline!");
+                discordActivity.ActivityType = ActivityType.Watching;
+                await _discordClient.UpdateStatusAsync(discordActivity, restart ? UserStatus.Idle : UserStatus.DoNotDisturb);
+                return;
+            }
             try
             {
                 var gs = new GameServer(IPEndPoint.Parse(_serverIP));
@@ -36,9 +46,9 @@ namespace RustDiscordStatus
             }
             catch (Exception ex)
             {
-                var discordActivity = new DiscordActivity(restart ? "Restarting..." : "Offline!");
-                discordActivity.ActivityType = ActivityType.Watching;
-                await _discordClient.UpdateStatusAsync(discordActivity, restart ? UserStatus.Idle : UserStatus.DoNotDisturb);
+                atemptCount++;
+                Thread.Sleep(2000);
+                goto retry;
             }
         }
 

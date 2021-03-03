@@ -45,7 +45,11 @@ namespace RustDiscordStatus
             {
                 Thread.Sleep(_config.UpdateTime);
                 foreach (var bot in _instances)
-                    if (bot.IsReady()) bot.Worker(_config.RestartingOverOffline).GetAwaiter().GetResult();
+                    if (bot.IsReady())
+                    {
+                        bot.Worker(_config.RestartingOverOffline).GetAwaiter().GetResult();
+                        Thread.Sleep(2000);
+                    }
             }
         }
     }
